@@ -1,0 +1,1 @@
+Module fpdf not installed; import fails as expected in clean env.

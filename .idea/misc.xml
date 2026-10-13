@@ -4,7 +4,7 @@
     <option name="enabledOnReformat" value="true" />
     <option name="enabledOnSave" value="true" />
     <option name="executionMode" value="BINARY" />
-    <option name="pathToExecutable" value="C:\Users\Felippe\AppData\Local\Programs\Python\Python312\Scripts\black.exe" />
+    <option name="pathToExecutable" value="black" />
     <option name="sdkName" value="projeto01" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (projeto01)" project-jdk-type="Python SDK" />

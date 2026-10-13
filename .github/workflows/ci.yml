@@ -1,0 +1,26 @@
+name: ci
+on:
+  push:
+    branches: [main, chore/*]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d6ac415e9e9a1e7e#a11bd71901bbe5b1630ceea73d6ac415e9e9a1e7e
+    - uses: actions/setup-python@82c7e5633bf5e8a13959c72789c238b0318a25c4#82c7e5633bf5e8a13959c72789c238b0318a25c4
+      with: python-version: '3.12'
+    - run: pip install ruff
+    - run: ruff check . --output-format=text
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d6ac415e9e9a1e7e#11bd71901bbe5b1630ceea73d6ac415e9e9a1e7e
+    - uses: actions/setup-python@82c7e5633bf5e8a13959c72789c238b0318a25c4#82c7e5633bf5e8a13959c72789c238b0318a25c4
+      with: python-version: '3.12'
+    - run: pip install -r requirements.txt
+    - run: python -m unittest discover -v
