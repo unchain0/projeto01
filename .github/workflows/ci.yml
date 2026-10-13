@@ -1,0 +1,26 @@
+name: ci
+on:
+  push:
+    branches: [main, chore/*]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d6ac415e9e9a1e7e # v4
+    - uses: actions/setup-python@82c7e5633bf5e8a13959c72789c238b0318a25c4 # v5
+      with: python-version: '3.12'
+    - run: pip install ruff
+    - run: ruff check . --output-format=concise
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d6ac415e9e9a1e7e # v4
+    - uses: actions/setup-python@82c7e5633bf5e8a13959c72789c238b0318a25c4 # v5
+      with: python-version: '3.12'
+    - run: grep -v -E '^(pywin32|pywinpty)' requirements.txt | pip install -r /dev/stdin
+    - run: bash -c 'python -m unittest discover -v; ret=$?; if [ $ret -eq 5 ]; then echo "No test modules found; skipping unittest"; exit 0; else exit $ret; fi'
